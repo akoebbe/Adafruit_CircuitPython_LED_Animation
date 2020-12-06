@@ -59,6 +59,7 @@ class Animation:
     def __init__(self, pixel_object, speed, color, peers=None, paused=False, name=None):
         self.pixel_object = pixel_object
         self.pixel_object.auto_write = False
+        self._state = [(0, 0, 0)] * len(pixel_object)
         self._peers = [self] + peers if peers is not None else [self]
         self._speed_ms = 0
         self._color = None
@@ -129,10 +130,18 @@ class Animation:
         is called.
         """
 
+    def get_state(self):
+        """
+        Returns a copy of the animation's state for use in display. It is important that the actual
+        state not be changed outside of the animation or bad things can happen.
+        """
+        return self._state.copy()
+
     def show(self):
         """
         Displays the updated pixels.  Called during animates with changes.
         """
+        # self.pixel_object[:] = self._state
         self.pixel_object.show()
 
     @property

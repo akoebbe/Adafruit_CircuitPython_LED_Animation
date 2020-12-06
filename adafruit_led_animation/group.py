@@ -169,7 +169,36 @@ class AnimationGroup:
                         member.show()
             return result
 
-        return any([item.animate(show) for item in self._members])
+        result = any([item.animate(False) for item in self._members])
+
+        if result:
+            self._members[0].pixel_object[0:len(self._members[0].pixel_object)] = self.merge()
+            self._members[0].pixel_object.show()
+
+        return result
+
+    def merge(self):
+        """
+        Returns a merged list of the individual animation states
+        """
+        merged_pixels = []
+        for item in self._members:
+            if not merged_pixels:
+                merged_pixels = item.get_state()
+            else:
+                for ind, color in enumerate(item.get_state()):
+                    merged_pixels[ind] = self.blend_color(merged_pixels[ind], color, method='add')
+        return merged_pixels
+
+    def blend_color(self, existing, new, method='overwrite'):
+        """
+        Returns the result of blending two colors based on the provided method
+        """
+        if method == 'add':
+            result = tuple(map(lambda i, j: min(i + j, 255), existing, new))
+            return result
+        else:
+            return new if new != (0, 0, 0) else existing
 
     @property
     def color(self):

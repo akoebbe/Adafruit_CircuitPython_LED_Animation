@@ -117,7 +117,7 @@ class Comet(Animation):
                     continue
                 draw_at = draw_at % self._num_pixels
 
-            self.pixel_object[draw_at] = color
+            self._state[draw_at] = color
 
         self._tail_start += self._direction
 

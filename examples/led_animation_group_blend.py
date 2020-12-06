@@ -6,7 +6,7 @@ import adafruit_led_animation.color as color
 
 
 def run():
-    pixels = Adafruit_NeoPixel_Emulator(Pin(3), n=30, auto_write=False)
+    pixels = Adafruit_NeoPixel_Emulator(Pin(3), n=30, auto_write=True)
     pixels.begin()
     pixels.fill(0)
 
