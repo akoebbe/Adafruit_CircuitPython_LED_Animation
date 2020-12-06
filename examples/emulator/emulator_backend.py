@@ -1,4 +1,4 @@
-from neopixel_emulator import NeoPixel_Emulator
+from .neopixel_emulator import NeoPixel_Emulator
 import neopixel
 
 

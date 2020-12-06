@@ -10,13 +10,15 @@ class NeoPixel_Emulator(pyglet.window.Window):
         self.led_group = pyglet.graphics.OrderedGroup(0)
         self.color_group = pyglet.graphics.OrderedGroup(1)
         self.alive = 1
+        pyglet.resource.path = ['@emulator', '.']
+        pyglet.resource.reindex()
 
     def draw_LEDs(self, led_number):
         for led in range(led_number):
-            img = pyglet.image.load('ws2812b.png')
+            img = pyglet.resource.image('ws2812b.png')
             self.sprites.append(pyglet.sprite.Sprite(img=img, batch=self.batch, x=(led - 50 * (led // 50)) * 35,
                                                      y=self.height - 34 - ((led // 50) * 34), group=self.led_group))
-            self.color_sprites.append(pyglet.sprite.Sprite(img=pyglet.image.load('circle.png'), batch=self.batch,
+            self.color_sprites.append(pyglet.sprite.Sprite(img=pyglet.resource.image('circle.png'), batch=self.batch,
                                                            x=(led - 50 * (led // 50)) * 35,
                                                            y=self.height - 34 - ((led // 50) * 34) - 5,
                                                            group=self.color_group))
@@ -27,12 +29,12 @@ class NeoPixel_Emulator(pyglet.window.Window):
     def draw_LED_matrix(self, width, height):
         for y in range(height):
             for x in range(width):
-                img = pyglet.image.load('ws2812b.png')
+                img = pyglet.resource.image('ws2812b.png')
                 self.sprites.append(
                     pyglet.sprite.Sprite(img=img, batch=self.batch, x=x * 35, y=self.height - 34 - (y * 34),
                                          group=self.led_group))
                 self.color_sprites.append(
-                    pyglet.sprite.Sprite(img=pyglet.image.load('circle.png'), batch=self.batch, x=x * 35,
+                    pyglet.sprite.Sprite(img=pyglet.resource.image('circle.png'), batch=self.batch, x=x * 35,
                                          y=self.height - 34 - (y * 34) - 5, group=self.color_group))
                 self.sprites[y * width + x].scale = .1
                 self.color_sprites[y * width + x].color = (0, 0, 0)
