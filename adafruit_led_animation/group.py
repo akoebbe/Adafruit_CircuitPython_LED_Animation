@@ -187,7 +187,7 @@ class AnimationGroup:
                 merged_pixels = item.get_state()
             else:
                 for ind, color in enumerate(item.get_state()):
-                    merged_pixels[ind] = self.blend_color(merged_pixels[ind], color, method='subtract')
+                    merged_pixels[ind] = self.blend_color(merged_pixels[ind], color, method='add')
         return merged_pixels
 
     def blend_color(self, existing, new, method='overwrite'):
