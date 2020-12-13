@@ -11,7 +11,7 @@ def run():
     pixels.fill(0)
 
     comet1 = Comet(pixels, 0.2, color.RED, 6, bounce=True)
-    comet2 = Comet(pixels, 0.4, color.WHITE, 6, bounce=True)
+    comet2 = Comet(pixels, 0.4, color.BLUE, 6, bounce=True)
     comet3 = Comet(pixels, 0.7, color.GREEN, 6, bounce=True)
 
     group = AnimationGroup(comet1, comet2, comet3, sync=False)

@@ -187,7 +187,7 @@ class AnimationGroup:
                 merged_pixels = item.get_state()
             else:
                 for ind, color in enumerate(item.get_state()):
-                    merged_pixels[ind] = self.blend_color(merged_pixels[ind], color, method='add')
+                    merged_pixels[ind] = self.blend_color(merged_pixels[ind], color, method='subtract')
         return merged_pixels
 
     def blend_color(self, existing, new, method='overwrite'):
@@ -196,6 +196,11 @@ class AnimationGroup:
         """
         if method == 'add':
             result = tuple(map(lambda i, j: min(i + j, 255), existing, new))
+            return result
+        elif method == 'subtract':
+            if existing == (0, 0, 0):
+                return new
+            result = tuple(map(lambda i, j: abs(i - j), new, existing ))
             return result
         else:
             return new if new != (0, 0, 0) else existing
